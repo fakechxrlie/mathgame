@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Math Game</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Math Game</h1>
+    <button onclick="startGame()" class="start-btn">Start</button>
+    <div id="game" style="display: none;">
+      <div id="problem"></div>
+      <input type="text" id="answer" placeholder="Enter your answer">
+      <button onclick="checkAnswer()" class="submit-btn">Submit</button>
+      <p id="result"></p>
+      <p id="time">Time: 0s</p>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
