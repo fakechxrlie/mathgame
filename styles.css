@@ -17,6 +17,28 @@ body {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
+.option-btn {
+  padding: 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: #fff;
+  color: #333;
+}
+
+.option-btn:hover {
+  background-color: #ddd;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
 input[type="text"], .submit-btn, .start-btn {
   margin-top: 10px;
   padding: 10px 20px;
@@ -56,3 +78,4 @@ input[type="text"] {
 #time {
   margin-top: 20px;
 }
+
