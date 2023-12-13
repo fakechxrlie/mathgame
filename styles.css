@@ -7,11 +7,12 @@ body {
   height: 100vh;
   overflow: hidden;
   background: linear-gradient(to bottom right, #3498db, #8e44ad);
-  animation: gradientAnimation 1s ease infinite alternate-reverse;
+  animation: gradientAnimation 10s ease infinite;
+  background-size: 400% 400%;
 }
 
 .container {
-  background-color: #fff;
+  background-color: #fff; /* Solid color for container */
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -19,12 +20,10 @@ body {
 
 @keyframes gradientAnimation {
   0% {
-    background-position: 0% 50%;
+    background-position: 0% 100%;
   }
   100% {
-    background-position: 100% 50%;
-  }
-}
+    background-position: 100% 0%
 
 /* Your other styles */
 
