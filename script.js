@@ -53,6 +53,12 @@ function checkAnswer(selectedAnswer) {
   } else {
     resultElement.textContent = 'Wrong!';
   }
+
+  setTimeout(() => {
+    resultElement.textContent = '';
+    generateQuestion();
+    startTimer();
+  }, 1000); // Delay before showing the next question (1 second in this case)
 }
 
 generateQuestion();
