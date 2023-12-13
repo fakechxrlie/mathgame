@@ -16,9 +16,13 @@ startButton.addEventListener('click', startGame);
 function startGame() {
   startScreen.style.display = 'none';
   gameScreen.style.display = 'block';
+  questionCounter = 0;
   generateQuestion();
   startTimer();
 }
+
+// Rest of the code (generateQuestion, startTimer, checkAnswer) remains the same
+
 
 function generateQuestion() {
   const num1 = Math.floor(Math.random() * 10) + 1;
