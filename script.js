@@ -1,11 +1,24 @@
+const startButton = document.getElementById('start-btn');
 const questionElement = document.getElementById('question');
 const choicesElement = document.getElementById('choices');
 const resultElement = document.getElementById('result');
 const timeElement = document.getElementById('time');
+const startScreen = document.getElementById('start-screen');
+const gameScreen = document.getElementById('game-screen');
 
 let correctAnswer;
 let startTime;
 let timer;
+let questionCounter = 0;
+
+startButton.addEventListener('click', startGame);
+
+function startGame() {
+  startScreen.style.display = 'none';
+  gameScreen.style.display = 'block';
+  generateQuestion();
+  startTimer();
+}
 
 function generateQuestion() {
   const num1 = Math.floor(Math.random() * 10) + 1;
@@ -48,18 +61,25 @@ function updateTimer() {
 
 function checkAnswer(selectedAnswer) {
   clearInterval(timer);
+  questionCounter++;
+
   if (parseInt(selectedAnswer) === correctAnswer) {
     resultElement.textContent = 'Correct!';
   } else {
     resultElement.textContent = 'Wrong!';
   }
 
-  setTimeout(() => {
-    resultElement.textContent = '';
-    generateQuestion();
-    startTimer();
-  }, 1000); // Delay before showing the next question (1 second in this case)
+  if (questionCounter < 5) {
+    setTimeout(() => {
+      resultElement.textContent = '';
+      generateQuestion();
+      startTimer();
+    }, 1000); // Delay before showing the next question (1 second in this case)
+  } else {
+    setTimeout(() => {
+      questionCounter = 0;
+      gameScreen.style.display = 'none';
+      startScreen.style.display = 'block';
+    }, 1000); // Delay before going back to start screen (1 second in this case)
+  }
 }
-
-generateQuestion();
-startTimer();
