@@ -1,79 +1,59 @@
-const questions = [];
-let currentQuestionIndex = 0;
-let startTime, endTime;
+const questionElement = document.getElementById('question');
+const choicesElement = document.getElementById('choices');
+const resultElement = document.getElementById('result');
+const timeElement = document.getElementById('time');
 
-function startGame() {
-  document.getElementById('startBtn').style.display = 'none';
-  document.getElementById('result').innerHTML = '';
-  document.getElementById('choices').innerHTML = '';
+let correctAnswer;
+let startTime;
+let timer;
 
-  generateQuestions();
-  displayQuestion();
-  startTime = new Date().getTime();
-}
+function generateQuestion() {
+  const num1 = Math.floor(Math.random() * 10) + 1;
+  const num2 = Math.floor(Math.random() * 10) + 1;
+  correctAnswer = num1 * num2;
 
-function generateQuestions() {
-  for (let i = 0; i < 5; i++) {
-    const num1 = Math.floor(Math.random() * 10);
-    const num2 = Math.floor(Math.random() * 10);
-    const answer = num1 + num2;
-    const choices = generateChoices(answer);
-    const question = {
-      question: `${num1} + ${num2} = ?`,
-      choices: choices,
-      correctAnswer: answer
-    };
-    questions.push(question);
-  }
-}
+  questionElement.textContent = `${num1} x ${num2} = ?`;
 
-function generateChoices(answer) {
   const choices = [];
-  choices.push(answer);
+  choices.push(correctAnswer);
 
   while (choices.length < 4) {
-    const random = Math.floor(Math.random() * 20);
-    if (!choices.includes(random) && random !== answer) {
-      choices.push(random);
+    const wrongAnswer = (Math.floor(Math.random() * 10) + 1) * (Math.floor(Math.random() * 10) + 1);
+    if (!choices.includes(wrongAnswer)) {
+      choices.push(wrongAnswer);
     }
   }
 
-  return shuffleArray(choices);
+  choices.sort(() => Math.random() - 0.5);
+
+  choicesElement.innerHTML = '';
+  choices.forEach(choice => {
+    const button = document.createElement('button');
+    button.textContent = choice;
+    button.classList.add('choice-btn');
+    button.addEventListener('click', () => checkAnswer(choice));
+    choicesElement.appendChild(button);
+  });
 }
 
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
+function startTimer() {
+  startTime = Date.now();
+  timer = setInterval(updateTimer, 1000);
 }
 
-function displayQuestion() {
-  if (currentQuestionIndex < questions.length) {
-    const question = questions[currentQuestionIndex];
-    document.getElementById('question').textContent = question.question;
-
-    question.choices.forEach((choice, index) => {
-      const button = document.createElement('button');
-      button.textContent = choice;
-      button.onclick = () => checkAnswer(choice, question.correctAnswer);
-      document.getElementById('choices').appendChild(button);
-    });
-  } else {
-    endTime = new Date().getTime();
-    const totalTime = (endTime - startTime) / 1000;
-    document.getElementById('timer').textContent = `Time: ${totalTime.toFixed(1)}s`;
-    document.getElementById('result').textContent = 'Game Over';
-  }
+function updateTimer() {
+  const currentTime = Math.floor((Date.now() - startTime) / 1000);
+  timeElement.textContent = currentTime;
 }
 
-function checkAnswer(selectedAnswer, correctAnswer) {
+function checkAnswer(selectedAnswer) {
+  clearInterval(timer);
   if (parseInt(selectedAnswer) === correctAnswer) {
-    document.getElementById('result').textContent = 'Correct!';
+    resultElement.textContent = 'Correct!';
   } else {
-    document.getElementById('result').textContent = 'Wrong!';
+    resultElement.textContent = 'Wrong!';
   }
-  currentQuestionIndex++;
-  setTimeout(displayQuestion, 1000);
 }
+
+generateQuestion();
+startTimer();
