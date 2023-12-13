@@ -8,8 +8,8 @@ fetch('problems.txt')
   .then(data => {
     problems = data.split('\n').map(problem => {
       const [question, ...options] = problem.split(',');
-      const answerIndex = parseInt(options[0]); // Index of correct answer
-      return { question, options, answerIndex };
+      const answer = options[0]; // First option is the correct answer
+      return { question, options, answer };
     });
   });
 
@@ -17,16 +17,19 @@ function displayProblem() {
   const currentProblem = problems[currentProblemIndex];
   document.getElementById('problem').innerText = `Solve: ${currentProblem.question}`;
 
-  const options = currentProblem.options.slice(1); // Exclude the correct answer index
-  const answerIndex = currentProblem.answerIndex;
-
+  const options = currentProblem.options.slice(1); // Exclude the correct answer from options
+  options.push(currentProblem.answer); // Add correct answer to options
   const shuffledOptions = shuffleArray([...options]); // Shuffle options
-  const buttons = document.getElementsByClassName('option-btn');
+  const optionsContainer = document.getElementById('options');
+  optionsContainer.innerHTML = '';
 
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].innerText = shuffledOptions[i];
-    buttons[i].setAttribute('data-index', i);
-  }
+  shuffledOptions.forEach(option => {
+    const button = document.createElement('button');
+    button.textContent = option;
+    button.classList.add('option-btn');
+    button.addEventListener('click', () => checkAnswer(option));
+    optionsContainer.appendChild(button);
+  });
 }
 
 function startTimer() {
@@ -37,13 +40,13 @@ function stopTimer() {
   endTime = new Date().getTime();
 }
 
-function checkAnswer(selectedIndex) {
+function checkAnswer(selectedAnswer) {
   stopTimer();
   const elapsedTime = (endTime - startTime) / 1000; // Convert to seconds
   document.getElementById('time').innerText = `Time: ${elapsedTime.toFixed(2)}s`;
 
-  const correctIndex = problems[currentProblemIndex].answerIndex;
-  if (selectedIndex === correctIndex) {
+  const correctAnswer = problems[currentProblemIndex].answer;
+  if (selectedAnswer === correctAnswer) {
     document.getElementById('result').innerText = 'Correct!';
   } else {
     document.getElementById('result').innerText = 'Incorrect. Try again.';
