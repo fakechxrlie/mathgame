@@ -11,7 +11,6 @@ fetch('problems.txt')
       const answerIndex = parseInt(options[0]); // Index of correct answer
       return { question, options, answerIndex };
     });
-    displayProblem();
   });
 
 function displayProblem() {
@@ -21,9 +20,11 @@ function displayProblem() {
   const options = currentProblem.options.slice(1); // Exclude the correct answer index
   const answerIndex = currentProblem.answerIndex;
 
+  const shuffledOptions = shuffleArray([...options]); // Shuffle options
   const buttons = document.getElementsByClassName('option-btn');
+
   for (let i = 0; i < buttons.length; i++) {
-    buttons[i].innerText = options[i];
+    buttons[i].innerText = shuffledOptions[i];
     buttons[i].setAttribute('data-index', i);
   }
 }
@@ -60,5 +61,15 @@ function checkAnswer(selectedIndex) {
 function startGame() {
   document.querySelector('.start-btn').style.display = 'none';
   document.getElementById('game').style.display = 'block';
+  displayProblem();
   startTimer();
+}
+
+// Function to shuffle array elements
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
