@@ -9,7 +9,7 @@ body {
   background: linear-gradient(45deg, 
               #8A2BE2, #0000FF, #00BFFF, #0000FF, #8A2BE2);
   background-size: 800% 800%;
-  animation: gradientAnimation 60s linear infinite;
+  animation: gradientAnimation 15s linear infinite;
 }
 
 .container {
