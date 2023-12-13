@@ -8,8 +8,8 @@ fetch('problems.txt')
   .then(data => {
     problems = data.split('\n').map(problem => {
       const [question, ...options] = problem.split(',');
-      const answer = options[0]; // First option is the correct answer
-      return { question, options, answer };
+      const answerIndex = parseInt(options[0]); // Index of correct answer
+      return { question, options, answerIndex };
     });
   });
 
@@ -17,19 +17,14 @@ function displayProblem() {
   const currentProblem = problems[currentProblemIndex];
   document.getElementById('problem').innerText = `Solve: ${currentProblem.question}`;
 
-  const options = currentProblem.options.slice(1); // Exclude the correct answer from options
-  options.push(currentProblem.answer); // Add correct answer to options
-  const shuffledOptions = shuffleArray([...options]); // Shuffle options
-  const optionsContainer = document.getElementById('options');
-  optionsContainer.innerHTML = '';
+  const options = currentProblem.options.slice(1); // Exclude the correct answer index
+  const answerIndex = currentProblem.answerIndex;
 
-  shuffledOptions.forEach(option => {
-    const button = document.createElement('button');
-    button.textContent = option;
-    button.classList.add('option-btn');
-    button.addEventListener('click', () => checkAnswer(option));
-    optionsContainer.appendChild(button);
-  });
+  const buttons = document.getElementsByClassName('option-btn');
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].innerText = options[i];
+    buttons[i].setAttribute('data-index', i);
+  }
 }
 
 function startTimer() {
@@ -40,13 +35,13 @@ function stopTimer() {
   endTime = new Date().getTime();
 }
 
-function checkAnswer(selectedAnswer) {
+function checkAnswer(selectedIndex) {
   stopTimer();
   const elapsedTime = (endTime - startTime) / 1000; // Convert to seconds
   document.getElementById('time').innerText = `Time: ${elapsedTime.toFixed(2)}s`;
 
-  const correctAnswer = problems[currentProblemIndex].answer;
-  if (selectedAnswer === correctAnswer) {
+  const correctIndex = problems[currentProblemIndex].answerIndex;
+  if (selectedIndex === correctIndex) {
     document.getElementById('result').innerText = 'Correct!';
   } else {
     document.getElementById('result').innerText = 'Incorrect. Try again.';
@@ -66,13 +61,4 @@ function startGame() {
   document.getElementById('game').style.display = 'block';
   displayProblem();
   startTimer();
-}
-
-// Function to shuffle array elements
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
 }
