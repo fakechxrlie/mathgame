@@ -1,27 +1,19 @@
+let problems = []; // Array to store problems and answers
+let currentProblemIndex = 0;
 let startTime, endTime;
 
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+// Fetch problems from problems.txt
+fetch('problems.txt')
+  .then(response => response.text())
+  .then(data => {
+    problems = data.split('\n').map(problem => {
+      const [question, answer] = problem.split(',');
+      return { question, answer: parseInt(answer) };
+    });
+  });
 
-function generateProblem() {
-  const num1 = getRandomInt(1, 10);
-  const num2 = getRandomInt(1, 10);
-  const operator = getRandomInt(1, 2); // 1 for addition, 2 for multiplication
-
-  let problemText;
-  let answer;
-  
-  if (operator === 1) {
-    problemText = `${num1} + ${num2}`;
-    answer = num1 + num2;
-  } else {
-    problemText = `${num1} * ${num2}`;
-    answer = num1 * num2;
-  }
-
-  document.getElementById('problem').innerText = `Solve: ${problemText}`;
-  return answer;
+function displayProblem() {
+  document.getElementById('problem').innerText = `Solve: ${problems[currentProblemIndex].question}`;
 }
 
 function startTimer() {
@@ -43,7 +35,7 @@ function checkAnswer() {
   const elapsedTime = (endTime - startTime) / 1000; // Convert to seconds
   document.getElementById('time').innerText = `Time: ${elapsedTime.toFixed(2)}s`;
 
-  const correctAnswer = generateProblem();
+  const correctAnswer = problems[currentProblemIndex].answer;
   if (userAnswer === correctAnswer) {
     document.getElementById('result').innerText = 'Correct!';
   } else {
@@ -54,7 +46,8 @@ function checkAnswer() {
     document.getElementById('result').innerText = '';
     document.getElementById('time').innerText = 'Time: 0s';
     document.getElementById('answer').value = '';
-    generateProblem();
+    currentProblemIndex = (currentProblemIndex + 1) % problems.length; // Move to the next problem
+    displayProblem();
     startTimer();
   }, 2000); // Reset after 2 seconds
 }
@@ -62,6 +55,6 @@ function checkAnswer() {
 function startGame() {
   document.querySelector('.start-btn').style.display = 'none';
   document.getElementById('game').style.display = 'block';
-  generateProblem();
+  displayProblem();
   startTimer();
 }
