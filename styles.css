@@ -1,82 +1,20 @@
 body {
   font-family: Arial, sans-serif;
+  text-align: center;
   margin: 0;
   padding: 0;
-  background: linear-gradient(45deg, #3498db, #8e44ad);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
 }
 
 .container {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
 }
 
-.option-btn {
-  padding: 15px;
+.choices button {
+  margin: 10px;
+  padding: 5px 10px;
   font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  background-color: #ddd; /* Change the background color */
-  color: #333; /* Change the text color */
-}
-
-.option-btn:hover {
-  background-color: #ccc; /* Darken the background on hover */
-}
-
-.options-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  margin-top: 20px;
-}
-
-
-input[type="text"], .submit-btn, .start-btn {
-  margin-top: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-input[type="text"] {
-  width: 200px;
-}
-
-.submit-btn {
-  background-color: #27ae60;
-  color: #fff;
-}
-
-.submit-btn:hover {
-  background-color: #219a52;
-}
-
-.start-btn {
-  background-color: #e74c3c;
-  color: #fff;
-}
-
-.start-btn:hover {
-  background-color: #d73a2f;
 }
 
 #result {
   font-weight: bold;
 }
-
-#time {
-  margin-top: 20px;
-}
-
