@@ -11,6 +11,7 @@ fetch('problems.txt')
       const answerIndex = parseInt(options[0]); // Index of correct answer
       return { question, options, answerIndex };
     });
+    displayProblem();
   });
 
 function displayProblem() {
@@ -59,6 +60,5 @@ function checkAnswer(selectedIndex) {
 function startGame() {
   document.querySelector('.start-btn').style.display = 'none';
   document.getElementById('game').style.display = 'block';
-  displayProblem();
   startTimer();
 }
