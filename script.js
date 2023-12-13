@@ -11,7 +11,6 @@ fetch('problems.txt')
       const answer = options[0]; // First option is the correct answer
       return { question, options, answer };
     });
-    displayProblem();
   });
 
 function displayProblem() {
@@ -19,6 +18,7 @@ function displayProblem() {
   document.getElementById('problem').innerText = `Solve: ${currentProblem.question}`;
 
   const options = currentProblem.options.slice(1); // Exclude the correct answer from options
+  options.push(currentProblem.answer); // Add correct answer to options
   const shuffledOptions = shuffleArray([...options]); // Shuffle options
   const optionsContainer = document.getElementById('options');
   optionsContainer.innerHTML = '';
@@ -64,6 +64,7 @@ function checkAnswer(selectedAnswer) {
 function startGame() {
   document.querySelector('.start-btn').style.display = 'none';
   document.getElementById('game').style.display = 'block';
+  displayProblem();
   startTimer();
 }
 
