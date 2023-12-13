@@ -13,6 +13,23 @@ body {
   text-align: center;
 }
 
+/* Your existing styles */
+
+.choice-btn {
+  padding: 12px 20px;
+  font-size: 18px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+/* Rest of your styles */
+
+
 #start-btn, .choice-btn {
   padding: 12px 20px;
   font-size: 18px;
