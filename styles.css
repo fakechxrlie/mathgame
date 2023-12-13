@@ -10,6 +10,7 @@ body {
               #8A2BE2, #0000FF, #00BFFF, #0000FF, #8A2BE2);
   background-size: 800% 800%;
   animation: gradientAnimation 15s linear infinite;
+  font-family: 'Roboto', sans-serif;
 }
 
 .container {
