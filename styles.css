@@ -1,20 +1,60 @@
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
 }
 
-.container {
-  margin-top: 50px;
+#start-screen, #game-screen {
+  text-align: center;
 }
 
-.choices button {
-  margin: 10px;
-  padding: 5px 10px;
-  font-size: 16px;
+#start-btn, .choice-btn {
+  padding: 12px 20px;
+  font-size: 18px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+#start-btn:hover, .choice-btn:hover {
+  background-color: #2980b9;
+}
+
+#game-screen {
+  display: none;
+}
+
+h1 {
+  color: #333;
+}
+
+#question {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+#choices {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 #result {
-  font-weight: bold;
+  font-size: 24px;
+  margin-top: 20px;
+}
+
+#timer {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #555;
 }
