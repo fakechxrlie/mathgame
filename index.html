@@ -5,16 +5,19 @@
   <title>Math Game</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+<!-- ... (other HTML code) ... -->
 <body>
   <div class="container">
-    <h1>Math Game</h1>
-    <p id="question"></p>
-    <div id="choices" class="choices"></div>
-    <button id="startBtn" onclick="startGame()">Start Game</button>
-    <p id="result"></p>
-    <p id="timer">Time: 0s</p>
+    <!-- ... (existing HTML code) ... -->
+    <button id="startBtn">Start Game</button>
+    <!-- ... (existing HTML code) ... -->
   </div>
 
   <script src="script.js"></script>
+  <script>
+    document.getElementById('startBtn').addEventListener('click', startGame);
+  </script>
 </body>
+</html>
+
 </html>
